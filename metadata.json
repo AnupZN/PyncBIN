@@ -1,0 +1,6 @@
+{
+  "name": "PyncBIN",
+  "description": "A modern, secure, and minimalist Pastebin and real-time collaborative Pad with zero-knowledge client-side encryption, Markdown previews, syntax highlighting, and smooth glassmorphic UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
