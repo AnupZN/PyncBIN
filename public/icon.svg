@@ -1,27 +1,174 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- Background -->
-  <rect width="512" height="512" rx="128" fill="#0f172a"/>
-  <!-- Glowing Neon Accents -->
   <defs>
-    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#06b6d4" />
-      <stop offset="100%" stop-color="#3b82f6" />
+    <!-- Dark glass-morphic background gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#02040a" />
+      <stop offset="50%" stop-color="#050914" />
+      <stop offset="100%" stop-color="#0c1124" />
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#06b6d4" flood-opacity="0.3"/>
+
+    <!-- Glowing border for the outer glass plate -->
+    <linearGradient id="rim-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
+      <stop offset="40%" stop-color="#3b82f6" stop-opacity="0.4" />
+      <stop offset="70%" stop-color="#00f2fe" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#2575fc" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Inner glass background gradient for the card -->
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Glowing bracket elements gradient -->
+    <linearGradient id="bracket-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <!-- Translucent text lines gradient -->
+    <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.08" />
+    </linearGradient>
+
+    <!-- Refresh arrows loop gradient -->
+    <linearGradient id="loop-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#6a11cb" />
+    </linearGradient>
+
+    <!-- Dynamic neon glows -->
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <filter id="inner-shadow">
+      <feComponentTransfer in="SourceAlpha">
+        <feFuncA type="linear" slope="1"/>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feOffset dx="0" dy="4"/>
+      <feComposite operator="out" in2="SourceGraphic"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.8 0"/>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
     </filter>
   </defs>
-  <!-- Main Secure Pad Logo -->
-  <g filter="url(#shadow)">
-    <!-- Brackets -->
-    <path d="M 160,160 L 100,256 L 160,352" stroke="url(#glow)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-    <path d="M 352,160 L 412,256 L 352,352" stroke="url(#glow)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-    <!-- Lock Body -->
-    <rect x="196" y="240" width="120" height="96" rx="16" fill="url(#glow)"/>
-    <!-- Lock Shackle -->
-    <path d="M 216,240 V 200 A 40,40 0 0,1 296,200 V 240" stroke="url(#glow)" stroke-width="20" stroke-linecap="round" fill="none" />
-    <!-- Keyhole -->
-    <circle cx="256" cy="280" r="10" fill="#0f172a" />
-    <path d="M 256,288 L 256,310" stroke="#0f172a" stroke-width="8" stroke-linecap="round" />
+
+  <!-- Base Dark Canvas Background -->
+  <rect width="512" height="512" rx="140" fill="url(#bg-grad)" />
+
+  <!-- Outer Glass Frame Rim Light -->
+  <rect x="16" y="16" width="480" height="480" rx="124" fill="none" stroke="url(#rim-grad)" stroke-width="4" stroke-opacity="0.8" />
+  
+  <!-- Outer Frame Dark Accent Shadow (Glass depth) -->
+  <rect x="20" y="20" width="472" height="472" rx="120" fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.4" />
+
+  <!-- MAIN DOCUMENT CARD (Frosted Glass) -->
+  <g filter="url(#subtle-shadow)">
+    <!-- Main Card Shape with Rounded Corners and Folded top-right -->
+    <!-- Card dimensions: x=110, y=90, w=250, h=330, rx=32. Corner fold at (300,90) to (360,150) -->
+    <path d="M 142,90 
+             H 290 
+             L 360,160 
+             V 388 
+             A 32,32 0 0,1 328,420 
+             H 142 
+             A 32,32 0 0,1 110,388 
+             V 122 
+             A 32,32 0 0,1 142,90 Z" 
+          fill="url(#card-grad)" 
+          stroke="#ffffff" 
+          stroke-opacity="0.15" 
+          stroke-width="2.5" />
+
+    <!-- Glass Highlights on Card Edge -->
+    <path d="M 142,90 H 290" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2" fill="none" />
+    <path d="M 110,140 V 388" stroke="#ffffff" stroke-opacity="0.2" stroke-width="2" fill="none" />
+
+    <!-- Folded Flap Shadow and Fold Details -->
+    <!-- Triangular crease with realistic glossy gradients -->
+    <path d="M 290,90 
+             V 142 
+             A 18,18 0 0,0 308,160 
+             H 360 Z" 
+          fill="#ffffff" 
+          fill-opacity="0.08" 
+          stroke="#ffffff" 
+          stroke-opacity="0.25" 
+          stroke-width="2" />
+    
+    <!-- Smooth fold diagonal shadow -->
+    <path d="M 290,90 L 360,160" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2" />
+  </g>
+
+  <!-- CODE BRACKETS </_> (Glow effect) -->
+  <g filter="url(#neon-glow)" stroke="url(#bracket-grad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Left Bracket < -->
+    <path d="M 195,145 L 165,165 L 195,185" />
+    <!-- Slash / -->
+    <path d="M 225,195 L 245,135" />
+    <!-- Right Bracket > -->
+    <path d="M 275,145 L 305,165 L 275,185" />
+  </g>
+
+  <!-- DECORATIVE CODE TEXT LINES (Frosted glass pills) -->
+  <g fill="url(#line-grad)">
+    <rect x="155" y="225" width="160" height="12" rx="6" />
+    <rect x="155" y="255" width="110" height="12" rx="6" />
+    <rect x="155" y="285" width="130" height="12" rx="6" />
+    <rect x="155" y="315" width="80" height="12" rx="6" />
+    <rect x="155" y="345" width="100" height="12" rx="6" />
+  </g>
+
+  <!-- LIVE SYNC REPEAT ARROWS LOOP (Bottom Right Overlay) -->
+  <!-- Anchored around (335, 345) -->
+  <g filter="url(#neon-glow)">
+    <!-- Glow Ring backplate -->
+    <circle cx="335" cy="345" r="75" fill="#000000" fill-opacity="0.3" filter="url(#subtle-shadow)" />
+
+    <!-- Frosted/Glass overlay circle for the sync button -->
+    <circle cx="335" cy="345" r="75" fill="url(#card-grad)" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2" />
+
+    <!-- Gradient Sync Arrows -->
+    <!-- Top-Right pointing Arrow Arc -->
+    <path d="M 335,295 
+             A 50,50 0 0,1 385,345 
+             A 50,50 0 0,1 350,391" 
+          fill="none" 
+          stroke="url(#loop-grad)" 
+          stroke-width="14" 
+          stroke-linecap="round" />
+    <!-- Arrow Head 1 -->
+    <path d="M 390,325 L 385,350 L 360,345" 
+          fill="none" 
+          stroke="url(#loop-grad)" 
+          stroke-width="12" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Bottom-Left pointing Arrow Arc -->
+    <path d="M 335,395 
+             A 50,50 0 0,1 285,345 
+             A 50,50 0 0,1 320,299" 
+          fill="none" 
+          stroke="url(#loop-grad)" 
+          stroke-width="14" 
+          stroke-linecap="round" />
+    <!-- Arrow Head 2 -->
+    <path d="M 280,365 L 285,340 L 310,345" 
+          fill="none" 
+          stroke="url(#loop-grad)" 
+          stroke-width="12" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
   </g>
 </svg>
